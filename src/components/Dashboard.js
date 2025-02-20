@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Dashboard = () => {
       <h2>Welcome to the Dashboard</h2>
       <p>This is the main area after login. Future features will go here.</p>
       <button onClick={handleLogout}>Logout</button>
+      <Link to="/profile">View Profile</Link>
     </div>
   );
 };

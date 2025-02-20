@@ -9,6 +9,7 @@ import "./App.css";
 import VideoGames from "./components/VideoGames";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -27,6 +28,10 @@ function App() {
         <Route
           path="/videogames"
           element={token ? <VideoGames /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={token ? <Profile /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
