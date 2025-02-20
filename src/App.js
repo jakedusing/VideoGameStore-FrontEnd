@@ -19,7 +19,9 @@ function App() {
         {/* If not logged in, redirect to login */}
         <Route
           path="/"
-          element={token ? <Dashboard /> : <Navigate to="/login" />}
+          element={
+            token ? <Dashboard setToken={setToken} /> : <Navigate to="/login" />
+          }
         />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route
