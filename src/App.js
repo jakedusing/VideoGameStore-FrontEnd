@@ -8,6 +8,7 @@ import {
 import "./App.css";
 import VideoGames from "./components/VideoGames";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -18,9 +19,13 @@ function App() {
         {/* If not logged in, redirect to login */}
         <Route
           path="/"
-          element={token ? <VideoGames /> : <Navigate to="/login" />}
+          element={token ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route path="/login" element={<Login setToken={setToken} />} />
+        <Route
+          path="/videogames"
+          element={token ? <VideoGames /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );
