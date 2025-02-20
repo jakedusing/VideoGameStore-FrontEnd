@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Navigate,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import VideoGames from "./components/VideoGames";
-import Customers from "./components/Customers";
-import Employees from "./components/Employees";
+import Login from "./components/Login";
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   return (
-    <div className="App">
-      <h1>Welcome to the Video Game Store</h1>
-      <Employees />
-      <VideoGames />
-      <Customers />
-    </div>
+    <Router>
+      <Routes>
+        {/* If not logged in, redirect to login */}
+        <Route
+          path="/"
+          element={token ? <VideoGames /> : <Navigate to="/login" />}
+        />
+        <Route path="/login" element={<Login setToken={setToken} />} />
+      </Routes>
+    </Router>
   );
 }
 

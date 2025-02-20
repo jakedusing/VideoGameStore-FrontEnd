@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function VideoGames() {
   const [videoGames, setVideoGames] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -15,9 +17,17 @@ function VideoGames() {
       });
   }, []);
 
+  const handleLogout = () => {
+    // Clear the token from LocalStorage
+    localStorage.removeItem("token");
+    // Redirect to the login page
+    navigate("/login");
+  };
+
   return (
     <div>
       <h1>Video Games</h1>
+      <button onClick={handleLogout}>Logout</button>
       <ul>
         {videoGames.map((game) => (
           <li key={game.game_id}>
