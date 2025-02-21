@@ -5,17 +5,18 @@ import {
   Navigate,
   Routes,
 } from "react-router-dom";
-import "./App.css";
 import VideoGames from "./components/VideoGames";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
     <Router>
+      {token && <Navbar token={token} setToken={setToken} />}
       <Routes>
         {/* If not logged in, redirect to login */}
         <Route

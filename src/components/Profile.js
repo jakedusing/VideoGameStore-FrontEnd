@@ -40,20 +40,28 @@ const Profile = () => {
   if (!user) return <p>No user data available</p>;
 
   return (
-    <div>
-      <h2>Profile</h2>
-      <p>
-        <strong>Name:</strong> {user.firstName} {user.lastName}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
-      </p>
-      <p>
-        <strong>Phone Number:</strong> {user.phoneNumber}{" "}
-      </p>
-      <p>
-        <strong>Salary:</strong> ${user.salary}
-      </p>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-96">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
+          Profile
+        </h2>
+        <div className="space-y-3">
+          <p className="text-gray-700">
+            <strong className="font-semibold">Name:</strong> {user.firstName}{" "}
+            {user.lastName}
+          </p>
+          <p className="text-gray-700">
+            <strong className="font-semibold">Email:</strong> {user.email}
+          </p>
+          <p className="text-gray-700">
+            <strong className="font-semibold">Phone Number:</strong>{" "}
+            {user.phoneNumber}
+          </p>
+          <p className="text-gray-700">
+            <strong className="font-semibold">Salary:</strong> ${user.salary}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
