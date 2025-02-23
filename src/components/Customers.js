@@ -4,17 +4,23 @@ import axios from "axios";
 function Customers() {
   const [customers, setCustomers] = useState([]); // stores all customers
   const [searchQuery, setSearchQuery] = useState(""); // stores the search input
+  const [isSearching, setIsSearching] = useState(false); // track is user is viewing search results
 
   // get all customers when the component loads
-  useEffect(() => {
+  const fetchAllCustomers = () => {
     axios
       .get("http://localhost:8080/api/customers")
       .then((response) => {
         setCustomers(response.data);
+        setIsSearching(false);
       })
       .catch((error) => {
         console.error("There was an error fetching the customers:", error);
       });
+  };
+
+  useEffect(() => {
+    fetchAllCustomers();
   }, []);
 
   // function to handle search
@@ -30,9 +36,23 @@ function Customers() {
         )
         .then((response) => {
           setCustomers(response.data);
+          setIsSearching(true);
         });
     } catch (error) {
       console.error("Error searchign for customers:", error);
+    }
+  };
+
+  // function to reset search and show all customers again
+  const handleReset = () => {
+    setSearchQuery(""); // clear search input
+    fetchAllCustomers(); // fetch all customers
+  };
+
+  // handle enter key press in the search input
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
     }
   };
 
@@ -47,6 +67,7 @@ function Customers() {
           placeholder="Search by first name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown} // Listen for Enter key
           className="border p-2 rounded w-full"
         />
         <button
@@ -55,6 +76,14 @@ function Customers() {
         >
           Search
         </button>
+        {isSearching && (
+          <button
+            onClick={handleReset}
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Reset
+          </button>
+        )}
       </div>
 
       {/* Customer List */}
