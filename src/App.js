@@ -9,6 +9,7 @@ import VideoGames from "./components/VideoGames";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import Customers from "./components/Customers";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/profile"
           element={token ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/customers"
+          element={token ? <Customers /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
