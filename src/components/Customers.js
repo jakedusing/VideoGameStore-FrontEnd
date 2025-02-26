@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import EditCustomerForm from "./EditCustomerForm";
 
 function Customers() {
   const [customers, setCustomers] = useState([]); // stores all customers
   const [searchQuery, setSearchQuery] = useState(""); // stores the search input
   const [isSearching, setIsSearching] = useState(false); // track is user is viewing search results
+  const [editingCustomer, setEditingCustomer] = useState(null);
 
   // get all customers when the component loads
   const fetchAllCustomers = () => {
@@ -56,8 +58,23 @@ function Customers() {
     }
   };
 
+  const handleEdit = (customer) => {
+    setEditingCustomer(customer);
+  };
+
+  const handleUpdate = (updatedCustomer) => {
+    setCustomers(
+      customers.map((c) => (c.id === updatedCustomer.id ? updatedCustomer : c))
+    );
+    setEditingCustomer(null);
+  };
+
+  const handleCancel = () => {
+    setEditingCustomer(null);
+  };
+
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4">Customers</h1>
 
       {/* Search Input */}
@@ -86,21 +103,48 @@ function Customers() {
         )}
       </div>
 
-      {/* Customer List */}
-      <ul className="border rounded p-4">
-        {customers.length > 0 ? (
-          customers.map((customer) => (
-            <li key={customer.id} className="border-b py-2">
-              <strong>
-                {customer.firstName} {customer.lastName}
-              </strong>{" "}
-              - {customer.email} ({customer.phoneNumber})
-            </li>
-          ))
-        ) : (
-          <p>No customers found.</p>
-        )}
-      </ul>
+      {editingCustomer ? (
+        <EditCustomerForm
+          customer={editingCustomer}
+          onUpdate={handleUpdate}
+          onCancel={handleCancel}
+        />
+      ) : (
+        <div className="w-full max-w-2xl">
+          {/* Customer List */}
+          <ul className="space-y-4">
+            {customers.length > 0 ? (
+              customers.map((customer) => (
+                <li
+                  key={customer.id}
+                  className="border p-4 rounded flex justify-between items-center"
+                >
+                  <div>
+                    <p>
+                      <strong>Name: </strong>
+                      {customer.firstName} {customer.lastName}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {customer.email}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {customer.phoneNumber}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleEdit(customer)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                  >
+                    Edit
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p>No customers found.</p>
+            )}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Customers from "./components/Customers";
+import AddCustomer from "./components/AddCustomer";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
         <Route
           path="/customers"
           element={token ? <Customers /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/add-customer"
+          element={token ? <AddCustomer /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

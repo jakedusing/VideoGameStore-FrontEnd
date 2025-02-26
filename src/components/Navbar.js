@@ -39,6 +39,11 @@ const Navbar = ({ token, setToken }) => {
               Customers
             </Link>
           </li>
+          <li>
+            <Link to="/add-customer" className="hover:text-gray-400 transition">
+              Add Customer
+            </Link>
+          </li>
         </ul>
 
         {/* Right side: Logout button (only shown when logged in) */}
