@@ -9,9 +9,12 @@ import VideoGames from "./components/VideoGames";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import Customers from "./components/Customers";
+// import Customers from "./components/Customers";
 import AddCustomer from "./components/AddCustomer";
 import Navbar from "./components/Navbar";
+// import CustomerSearch from "./components/CustomerSearch";
+// import CustomerDetails from "./components/CustomerDetails";
+import CustomerLookupPage from "./components/CustomerLookupPage";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -38,7 +41,7 @@ function App() {
         />
         <Route
           path="/customers"
-          element={token ? <Customers /> : <Navigate to="/login" />}
+          element={token ? <CustomerLookupPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/add-customer"
