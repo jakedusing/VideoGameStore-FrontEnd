@@ -5,7 +5,7 @@ const CustomerDetails = ({ customer }) => {
   const [showHistory, setShowHistory] = useState(false);
 
   return (
-    <div className="p-4 border rounded shadow-md">
+    <div className="container p-4 border rounded shadow-md w-full max-w-6xl mx-auto">
       <h2 className="text-xl font-bold">Customer Details</h2>
       <p>
         <strong>Name:</strong> {customer.firstName} {customer.lastName}
@@ -24,7 +24,11 @@ const CustomerDetails = ({ customer }) => {
         {showHistory ? "Hide" : "View"} Order History
       </button>
 
-      {showHistory && <CustomerSalesHistory customerId={customer.id} />}
+      {showHistory && (
+        <div className="mt-4">
+          <CustomerSalesHistory customerId={customer.id} />
+        </div>
+      )}
     </div>
   );
 };

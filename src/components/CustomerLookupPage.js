@@ -14,7 +14,7 @@ const CustomerLookupPage = () => {
   }, [location.pathname]);
 
   return (
-    <div className="max-w-lg mx-auto mt-6">
+    <div className="w-full max-w-3xl mx-auto mt-6">
       {!selectedCustomer ? (
         <CustomerSearch onSelectCustomer={setSelectedCustomer} />
       ) : (

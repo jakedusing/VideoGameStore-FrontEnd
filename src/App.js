@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 // import CustomerSearch from "./components/CustomerSearch";
 // import CustomerDetails from "./components/CustomerDetails";
 import CustomerLookupPage from "./components/CustomerLookupPage";
+import SalesPage from "./components/SalesPage";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -46,6 +47,10 @@ function App() {
         <Route
           path="/add-customer"
           element={token ? <AddCustomer /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/sales"
+          element={token ? <SalesPage /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

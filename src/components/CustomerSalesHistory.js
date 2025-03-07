@@ -49,7 +49,9 @@ const CustomerSalesHistory = ({ customerId }) => {
             <div className="p-3 bg-gray-50">
               {order.games.map((game) => (
                 <div key={game.saleId} className="flex justify-between py-1">
-                  <span>Game ID: {game.gameId}</span>
+                  <span>
+                    <strong>{game.title}</strong> ({game.platform})
+                  </span>
                   <span>
                     {game.quantity} × ${game.price.toFixed(2)}
                   </span>
