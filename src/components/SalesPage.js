@@ -4,6 +4,7 @@ const SalesPage = () => {
   const [games, setGames] = useState([]);
   const [searchPhone, setSearchPhone] = useState("");
   const [customer, setCustomer] = useState(null);
+  const [cart, setCart] = useState([]);
 
   // fetch available games
   useEffect(() => {
@@ -27,6 +28,22 @@ const SalesPage = () => {
         }
       })
       .catch(() => setCustomer(null));
+  };
+
+  // Add game to cart
+  const addToCart = (game) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === game.id);
+      if (existingItem) {
+        // increase quantity if already in cart
+        return prevCart.map((item) =>
+          item.id === game.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        // add new item to cart
+        return [...prevCart, { ...game, quantity: 1 }];
+      }
+    });
   };
 
   return (
@@ -63,11 +80,35 @@ const SalesPage = () => {
         <ul>
           {games.map((game) => (
             <li key={game.id} className="p-2 border-b">
-              {game.title} ({game.platform}) - ${game.price} - Stock:{" "}
-              {game.stock}
+              <span>
+                {game.title} ({game.platform}) - ${game.price} - Stock:{" "}
+                {game.stock}
+              </span>
+              <button
+                onClick={() => addToCart(game)}
+                className="bg-green-500 text-white px-2 py-1"
+              >
+                Add to Cart
+              </button>
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* Cart Section */}
+      <div className="w-1/3 p-4 border-1">
+        <h2 className="text-lg font-bold">Cart</h2>
+        {cart.length === 0 ? (
+          <p>Cart is empty</p>
+        ) : (
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id} className="p-2 border-b">
+                {item.title} ({item.platform}) - ${item.price} x {item.quantity}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
