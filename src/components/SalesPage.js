@@ -46,6 +46,24 @@ const SalesPage = () => {
     });
   };
 
+  // Remove game from cart
+  const removeFromCart = (gameId) => {
+    setCart(
+      (prevCart) =>
+        prevCart
+          .map((item) =>
+            item.id === gameId ? { ...item, quantity: item.quantity - 1 } : item
+          )
+          .filter((item) => item.quantity > 0) // remove item if quantity reaches 0
+    );
+  };
+
+  // Calculate total price of items in the cart
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">New Sale</h1>
@@ -101,13 +119,33 @@ const SalesPage = () => {
         {cart.length === 0 ? (
           <p>Cart is empty</p>
         ) : (
-          <ul>
-            {cart.map((item) => (
-              <li key={item.id} className="p-2 border-b">
-                {item.title} ({item.platform}) - ${item.price} x {item.quantity}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul>
+              {cart.map((item) => (
+                <li key={item.id} className="p-2 border-b flex justify-between">
+                  <span>
+                    {item.title} ({item.platform}) - ${item.price} x{" "}
+                    {item.quantity}
+                  </span>
+                  <div>
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="bg-red-500 text-white px-2 py-1 ml-2"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            {/* Total Price Display */}
+            <div className="my-4 p-2 border-t text-right">
+              <p className="text-lg font-bold">
+                Total: ${totalPrice.toFixed(2)}
+              </p>
+            </div>
+          </>
         )}
       </div>
     </div>
