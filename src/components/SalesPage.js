@@ -5,6 +5,9 @@ const SalesPage = () => {
   const [searchPhone, setSearchPhone] = useState("");
   const [customer, setCustomer] = useState(null);
   const [cart, setCart] = useState([]);
+  const [message, setMessage] = useState(null);
+
+  const employeeId = 1;
 
   // fetch available games
   useEffect(() => {
@@ -63,6 +66,53 @@ const SalesPage = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // Complete sale function
+  const completeSale = () => {
+    if (!customer) {
+      setMessage({ type: "error", text: "Please select a customer first." });
+      return;
+    }
+
+    if (cart.length === 0) {
+      setMessage({
+        type: "error",
+        text: "Cart is empty. Add items to proceed.",
+      });
+      return;
+    }
+
+    const saleData = {
+      customerId: customer.id,
+      orderDate: new Date().toISOString().split("T")[0], // YYYY-MM-DD
+      employeeId: employeeId,
+      items: cart.map((item) => ({
+        gameId: item.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    fetch("http://localhost:8080/api/sales", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(saleData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMessage({
+          type: "success",
+          text: `Sale completed! Order ID: ${data.orderId}`,
+        });
+        setCart([]);
+      })
+      .catch((err) => {
+        setMessage({
+          type: "error",
+          text: "Error completing sale. Please try again.",
+        });
+        console.error("Error:", err);
+      });
+  };
 
   return (
     <div className="p-4">
@@ -145,7 +195,27 @@ const SalesPage = () => {
                 Total: ${totalPrice.toFixed(2)}
               </p>
             </div>
+
+            {/* Complete Sale Button */}
+            <button
+              onClick={completeSale}
+              className="bg-blue-600 text-white px-4 py-2 w-full mt-4"
+            >
+              Complete Sale
+            </button>
           </>
+        )}
+        {/* Message Display */}
+        {message && (
+          <div
+            className={`mt-4 p-2 text-center ${
+              message.type === "success"
+                ? "bg-gree-200 text-green-800"
+                : "bg-red-200 text-red-800"
+            }`}
+          >
+            {message.text}
+          </div>
         )}
       </div>
     </div>
