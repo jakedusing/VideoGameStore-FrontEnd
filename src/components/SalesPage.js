@@ -103,7 +103,14 @@ const SalesPage = () => {
           type: "success",
           text: `Sale completed! Order ID: ${data.orderId}`,
         });
+
         setCart([]);
+
+        // Re-fetch updated game list
+        fetch("http://localhost:8080/api/videogames")
+          .then((res) => res.json())
+          .then((data) => setGames(data))
+          .catch((err) => console.error("Error fetching updated games:", err));
       })
       .catch((err) => {
         setMessage({
