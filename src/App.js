@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -19,6 +19,35 @@ import SalesPage from "./components/SalesPage";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
+
+    fetch("http://localhost:8080/api/employees/me", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Invalid token");
+        }
+        return res.json();
+      })
+      .then(() => setIsLoading(false))
+      .catch(() => {
+        localStorage.removeItem("token");
+        setToken(null);
+        setIsLoading(false);
+      });
+  }, [token]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>
