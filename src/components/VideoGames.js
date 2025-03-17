@@ -91,9 +91,9 @@ function VideoGames() {
   const filteredAndSortedGames = filterGamesByPlatform(sortGames(videoGames));
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <div className="w-full max-w-6xl bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center p-6">
+      <div className="w-full max-w-6xl bg-gray-800 shadow-lg rounded-lg p-6">
+        <h1 className="text-3xl font-bold text-white mb-4 text-center">
           Video Game Stock
         </h1>
 
@@ -103,7 +103,7 @@ function VideoGames() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="border px-2 py-1"
+            className="border px-2 py-1 bg-gray-700 text-gray-200 rounded"
           >
             <option value="title">Sort by Title</option>
             <option value="price">Sort by Price</option>
@@ -116,34 +116,37 @@ function VideoGames() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by Platform"
-            className="border px-2 py-1"
+            className="border px-2 py-1 bg-gray-700 text-gray-200 rounded"
           />
         </div>
 
         {/* Table */}
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2">Title</th>
-                <th className="border border-gray-300 px-4 py-2">Platform</th>
-                <th className="border border-gray-300 px-4 py-2">Price</th>
-                <th className="border border-gray-300 px-4 py-2">Stock</th>
-                <th className="border border-gray-300 px-4 py-2">Actions</th>
+          <table className="w-full border-collapse">
+            <thead className="border-b-2">
+              <tr className="bg-gray-700 text-white">
+                <th className="border border-gray-600 px-4 py-2">Title</th>
+                <th className="border border-gray-600 px-4 py-2">Platform</th>
+                <th className="border border-gray-600 px-4 py-2">Price</th>
+                <th className="border border-gray-600 px-4 py-2">Stock</th>
+                <th className="border border-gray-600 px-4 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filteredAndSortedGames.map((game) => (
-                <tr key={game.id} className="bg-white">
-                  <td className="border border-gray-300 px-4 py-2">
+              {filteredAndSortedGames.map((game, index) => (
+                <tr
+                  key={game.id}
+                  className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}
+                >
+                  <td className="border border-gray-300 px-4 py-2 text-white">
                     {game.title}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 text-white">
                     {game.platform}
                   </td>
 
                   {/* Price */}
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border px-4 py-2 text-white">
                     {editingGameId === game.id ? (
                       <input
                         type="number"
@@ -151,7 +154,7 @@ function VideoGames() {
                         onChange={(e) =>
                           handleInputChange(game.id, "price", e.target.value)
                         }
-                        className="border px-2 py-1 w-20"
+                        className="border px-2 py-1 bg-gray-700 text-white w-20 rounded"
                       />
                     ) : (
                       <span>${game.price}</span>
@@ -159,7 +162,7 @@ function VideoGames() {
                   </td>
 
                   {/* Stock */}
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border px-4 py-2 text-white">
                     {editingGameId === game.id ? (
                       <input
                         type="number"
@@ -167,7 +170,7 @@ function VideoGames() {
                         onChange={(e) =>
                           handleInputChange(game.id, "stock", e.target.value)
                         }
-                        className="border px-2 py-1 w-20"
+                        className="border px-2 py-1 bg-gray-700 text-white w-20 rounded"
                       />
                     ) : (
                       <span>{game.stock}</span>
@@ -180,13 +183,13 @@ function VideoGames() {
                       <>
                         <button
                           onClick={() => handleUpdate(game.id)}
-                          className="bg-green-500 text-white px-2 py-1 rounded ml-2"
+                          className="bg-green-500 text-white px-2 py-1 rounded ml-2 hover:bg-green-600"
                         >
                           Save
                         </button>
                         <button
                           onClick={cancelEditing}
-                          className="bg-gray-500 text-white px-2 py-1 rounded ml-2"
+                          className="bg-gray-500 text-white px-2 py-1 rounded ml-2 hover:bg-gray-600"
                         >
                           Cancel
                         </button>
@@ -194,7 +197,7 @@ function VideoGames() {
                     ) : (
                       <button
                         onClick={() => startEditing(game.id)}
-                        className="bg-blue-500 text-white px-2 py-1 rounded ml-2"
+                        className="bg-blue-500 text-white px-2 py-1 rounded ml-2 hover:bg-blue-600"
                       >
                         Edit
                       </button>
