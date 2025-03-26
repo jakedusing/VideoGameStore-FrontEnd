@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar";
 // import CustomerDetails from "./components/CustomerDetails";
 import CustomerLookupPage from "./components/CustomerLookupPage";
 import SalesPage from "./components/SalesPage";
+import AddGame from "./components/AddGame";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -80,6 +81,10 @@ function App() {
         <Route
           path="/sales"
           element={token ? <SalesPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/add-game"
+          element={token ? <AddGame /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

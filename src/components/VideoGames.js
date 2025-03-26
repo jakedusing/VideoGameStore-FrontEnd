@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function VideoGames() {
@@ -7,6 +8,8 @@ function VideoGames() {
   const [updatedValues, setUpdatedValues] = useState({}); // Store changes for individual game
   const [sortBy, setSortBy] = useState("title"); // Default sorting by title
   const [searchTerm, setSearchTerm] = useState(""); // Search term for platform
+
+  const navigate = useNavigate();
 
   // Fetch video games data
   useEffect(() => {
@@ -96,6 +99,14 @@ function VideoGames() {
         <h1 className="text-3xl font-bold text-white mb-4 text-center">
           Video Game Stock
         </h1>
+
+        {/* Add New Game Button */}
+        <button
+          onClick={() => navigate("/add-game")}
+          className="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Add New Game
+        </button>
 
         {/* Sorting and Search */}
         <div className="mb-4 flex items-center space-x-4">
