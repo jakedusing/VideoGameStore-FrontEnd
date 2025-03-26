@@ -4,6 +4,7 @@ const CustomerSearch = ({ onSelectCustomer }) => {
   //console.log("onSelectCustomer prop:", onSelectCustomer);
   const [phone, setPhone] = useState("");
   const [customers, setCustomers] = useState([]);
+  const [searchAttempted, setSearchAttempted] = useState(false);
 
   const handlePhoneChange = (e) => {
     let input = e.target.value.replace(/\D/g, ""); // remove non-numeric characters
@@ -30,6 +31,11 @@ const CustomerSearch = ({ onSelectCustomer }) => {
 
   const handleSearch = () => {
     const formattedPhoneForAPI = formatForAPI(phone);
+
+    if (formattedPhoneForAPI.length !== 12) return;
+
+    setSearchAttempted(true);
+
     fetch(
       `http://localhost:8080/api/customers/search?phoneNumber=${formattedPhoneForAPI}`
     )
@@ -76,11 +82,13 @@ const CustomerSearch = ({ onSelectCustomer }) => {
           ))}
         </div>
       )}
-      {customers.length === 0 && phone !== "" && (
-        <p className="text-red-500 mt-2">
-          No customer found with that phone number.
-        </p>
-      )}
+      {customers.length === 0 &&
+        formatForAPI(phone).length === 12 &&
+        searchAttempted && (
+          <p className="text-red-500 mt-2">
+            No customer found with that phone number.
+          </p>
+        )}
     </div>
   );
 };
