@@ -122,108 +122,125 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">New Sale</h1>
+    <div className="bg-gray-900 text-gray-200 min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-4 text-gray-100">New Sale</h1>
 
       {/* Customer Search */}
-      <div className="mb-4">
+      <div className="mb-6 flex items-center">
         <input
           type="text"
           placeholder="Enter customer phone number"
           value={searchPhone}
           onChange={(e) => setSearchPhone(e.target.value)}
-          className="border p-2 mr-2"
+          className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-64 mr-2"
         />
-        <button onClick={searchCustomer} className="bg-blue-500 text-white p-2">
+        <button
+          onClick={searchCustomer}
+          className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md"
+        >
           Search
         </button>
       </div>
 
       {/* Show Customer Info */}
       {customer && (
-        <div className="mb-4 p-2 border">
+        <div className="mb-6 p-4 bg-gray-800 border border-gray-700 rounded-md">
           <p>
-            Customer: {customer.firstName} {customer.lastName}
+            <span className="font-semibold text-gray-300">Customer: </span>
+            {customer.firstName} {customer.lastName}
           </p>
-          <p>Email: {customer.email}</p>
+          <p>
+            <span className="font-semibold text-gray-300">Email: </span>
+            {customer.email}
+          </p>
         </div>
       )}
 
-      {/* Available Games List */}
-      <div>
-        <h2 className="text-lg font-bold">Available Games</h2>
-        <ul>
-          {games.map((game) => (
-            <li key={game.id} className="p-2 border-b">
-              <span>
-                {game.title} ({game.platform}) - ${game.price} - Stock:{" "}
-                {game.stock}
-              </span>
-              <button
-                onClick={() => addToCart(game)}
-                className="bg-green-500 text-white px-2 py-1"
+      <div className="flex gap-6">
+        {/* Available Games List */}
+        <div className="flex-1">
+          <h2 className="text-xl font-bold mb-4 text-gray-100">
+            Available Games
+          </h2>
+          <ul className="space-y-4 min-h-[400px]">
+            {games.map((game) => (
+              <li
+                key={game.id}
+                className="p-4 bg-gray-800 border border-gray-700 rounded-md flex justify-between items-center"
               >
-                Add to Cart
+                <span>
+                  {game.title} ({game.platform}) - ${game.price} - Stock:{" "}
+                  {game.stock}
+                </span>
+                <button
+                  onClick={() => addToCart(game)}
+                  className="bg-green-600 hover:bg-green-500 text-white px-3 py-2 rounded-md"
+                >
+                  Add to Cart
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Cart Section */}
+        <div className="w-1/3 p-4 mt-11 bg-gray-800 border border-gray-700 rounded-md self-start">
+          <h2 className="text-xl font-bold mb-4 text-gray-100">Cart</h2>
+          {cart.length === 0 ? (
+            <p>Cart is empty</p>
+          ) : (
+            <>
+              <ul className="space-y-4">
+                {cart.map((item) => (
+                  <li
+                    key={item.id}
+                    className="p-4 bg-gray-700 rounded-md flex justify-between items-center"
+                  >
+                    <span>
+                      {item.title} ({item.platform}) - ${item.price} x{" "}
+                      {item.quantity}
+                    </span>
+                    <div>
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="bg-red-600 hover:bg-red-500 text-white px-3 py-2 rounded-md"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Total Price Display */}
+              <div className="my-4 p-4 bg-gray-700 rounded-md text-right">
+                <p className="text-lg font-bold text-gray-200">
+                  Total: ${totalPrice.toFixed(2)}
+                </p>
+              </div>
+
+              {/* Complete Sale Button */}
+              <button
+                onClick={completeSale}
+                className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 w-full rounded-md mt-4"
+              >
+                Complete Sale
               </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Cart Section */}
-      <div className="w-1/3 p-4 border-1">
-        <h2 className="text-lg font-bold">Cart</h2>
-        {cart.length === 0 ? (
-          <p>Cart is empty</p>
-        ) : (
-          <>
-            <ul>
-              {cart.map((item) => (
-                <li key={item.id} className="p-2 border-b flex justify-between">
-                  <span>
-                    {item.title} ({item.platform}) - ${item.price} x{" "}
-                    {item.quantity}
-                  </span>
-                  <div>
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="bg-red-500 text-white px-2 py-1 ml-2"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            {/* Total Price Display */}
-            <div className="my-4 p-2 border-t text-right">
-              <p className="text-lg font-bold">
-                Total: ${totalPrice.toFixed(2)}
-              </p>
-            </div>
-
-            {/* Complete Sale Button */}
-            <button
-              onClick={completeSale}
-              className="bg-blue-600 text-white px-4 py-2 w-full mt-4"
+            </>
+          )}
+          {/* Message Display */}
+          {message && (
+            <div
+              className={`mt-4 p-3 rounded-md text-center ${
+                message.type === "success"
+                  ? "bg-green-700 text-green-300"
+                  : "bg-red-700 text-red-300"
+              }`}
             >
-              Complete Sale
-            </button>
-          </>
-        )}
-        {/* Message Display */}
-        {message && (
-          <div
-            className={`mt-4 p-2 text-center ${
-              message.type === "success"
-                ? "bg-gree-200 text-green-800"
-                : "bg-red-200 text-red-800"
-            }`}
-          >
-            {message.text}
-          </div>
-        )}
+              {message.text}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
