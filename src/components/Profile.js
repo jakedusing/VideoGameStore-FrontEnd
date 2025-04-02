@@ -40,7 +40,7 @@ const Profile = () => {
   if (!user) return <p>No user data available</p>;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900">
+    <div className="flex justify-center items-center min-h-[calc(100vh-4.5rem)] bg-gray-900">
       <div className="bg-gray-800 shadow-lg rounded-lg p-6 w-96 text-white">
         <h2 className="text-3xl font-bold text-center text-white mb-6">
           Profile

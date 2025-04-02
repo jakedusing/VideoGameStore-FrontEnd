@@ -20,7 +20,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-900 text-white relative">
+    <div className="min-h-[calc(100vh-4.5rem)] flex flex-col items-center justify-center bg-gray-900 text-white relative">
       {/* Company info (Top Right) */}
       <div className="absolute top-5 right-5 text-right">
         <h2 className="text-2xl font-bold">Game Haven</h2>

@@ -46,56 +46,60 @@ const AddCustomer = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Add New Customer</h2>
+    <div className="flex justify-center items-center min-h-[calc(100vh-4.5rem)] bg-gray-900">
+      <div className="max-w-md w-full p-6 bg-gray-800 shadow-lg rounded-md text-white">
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Add New Customer
+        </h2>
 
-      {message && <p className="text-center mb-4 text-red-500">{message}</p>}
+        {message && <p className="text-center mb-4 text-red-500">{message}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={customer.firstName}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={customer.lastName}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={customer.email}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
-        />
-        <input
-          type="tel"
-          name="phoneNumber"
-          placeholder="Phone Number"
-          value={customer.phoneNumber}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={customer.firstName}
+            onChange={handleChange}
+            required
+            className="w-full p-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={customer.lastName}
+            onChange={handleChange}
+            required
+            className="w-full p-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={customer.email}
+            onChange={handleChange}
+            required
+            className="w-full p-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            value={customer.phoneNumber}
+            onChange={handleChange}
+            required
+            className="w-full p-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+          />
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Add Customer
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+          >
+            Add Customer
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
