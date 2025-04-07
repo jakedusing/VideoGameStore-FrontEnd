@@ -30,7 +30,7 @@ const Navbar = ({ token, setToken }) => {
             </Link>
           </li>
           <li>
-            <Link to="/reports" className="hover:text-gray-400 transition">
+            <Link to="/salesreport" className="hover:text-gray-400 transition">
               Reports
             </Link>
           </li>

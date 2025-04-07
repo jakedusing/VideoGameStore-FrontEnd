@@ -6,7 +6,7 @@ const SalesReport = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost8080/api/reports/daily-sales")
+      .get("http://localhost:8080/api/reports/daily-sales")
       .then((response) => setSalesData(response.data))
       .catch((error) => console.error("Error fetching sales data:", error));
   }, []);

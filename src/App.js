@@ -15,8 +15,9 @@ import Navbar from "./components/Navbar";
 // import CustomerSearch from "./components/CustomerSearch";
 // import CustomerDetails from "./components/CustomerDetails";
 import CustomerLookupPage from "./components/CustomerLookupPage";
-import SalesPage from "./components/SalesPage";
+//import SalesPage from "./components/SalesPage";
 import AddGame from "./components/AddGame";
+import SalesReport from "./components/SalesReport";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -79,8 +80,8 @@ function App() {
           element={token ? <AddCustomer /> : <Navigate to="/login" />}
         />
         <Route
-          path="/sales"
-          element={token ? <SalesPage /> : <Navigate to="/login" />}
+          path="/salesreport"
+          element={token ? <SalesReport /> : <Navigate to="/login" />}
         />
         <Route
           path="/add-game"
