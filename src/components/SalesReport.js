@@ -3,11 +3,17 @@ import { useState, useEffect } from "react";
 
 const SalesReport = () => {
   const [salesData, setSalesData] = useState([]);
+  const [topGames, setTopGames] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/reports/daily-sales")
       .then((response) => setSalesData(response.data))
+      .catch((error) => console.error("Error fetching sales data:", error));
+
+    axios
+      .get("http://localhost:8080/api/reports/top-games")
+      .then((response) => setTopGames(response.data))
       .catch((error) => console.error("Error fetching sales data:", error));
   }, []);
 
@@ -32,6 +38,25 @@ const SalesReport = () => {
               <td className="border border-gray-600 p-2">
                 {sale.totalRevenue.toFixed(2)}
               </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h2 className="text-2xl font-bold mb-4 mt-10 text-center">
+        Top 10 Best-Selling Games
+      </h2>
+      <table className="w-full border-collapse border border-gray-600 mt-4">
+        <thead>
+          <tr className="bg-gray-700">
+            <th className="border border-gray-600 p2">Title</th>
+            <th className="border border-gray-600 p2">Total Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topGames.map((game, index) => (
+            <tr key={index} className="text-center">
+              <td className="border border-gray-600 p-2">{game.title}</td>
+              <td className="border border-gray-600 p-2">{game.totalSold}</td>
             </tr>
           ))}
         </tbody>
