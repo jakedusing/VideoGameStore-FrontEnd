@@ -18,49 +18,66 @@ const SalesReport = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-800 shadow-lg rounded-md text-white">
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        Daily Sales Report
-      </h2>
-      <table className="w-full border-collapse border border-gray-600">
-        <thead>
-          <tr className="bg-gray-700">
-            <th className="border border-gray-600 p-2">Date</th>
-            <th className="border border-gray-600 p-2">Total Orders</th>
-            <th className="border border-gray-600 p-2">Total Revenue</th>
-          </tr>
-        </thead>
-        <tbody>
-          {salesData.map((sale) => (
-            <tr key={sale.saleDate} className="text-center">
-              <td className="border border-gray-600 p-2">{sale.saleDate}</td>
-              <td className="border border-gray-600 p-2">{sale.totalOrders}</td>
-              <td className="border border-gray-600 p-2">
-                {sale.totalRevenue.toFixed(2)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <h2 className="text-2xl font-bold mb-4 mt-10 text-center">
-        Top 10 Best-Selling Games
-      </h2>
-      <table className="w-full border-collapse border border-gray-600 mt-4">
-        <thead>
-          <tr className="bg-gray-700">
-            <th className="border border-gray-600 p2">Title</th>
-            <th className="border border-gray-600 p2">Total Sold</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topGames.map((game, index) => (
-            <tr key={index} className="text-center">
-              <td className="border border-gray-600 p-2">{game.title}</td>
-              <td className="border border-gray-600 p-2">{game.totalSold}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="max-w-6xl mx-auto p-6 bg-gray-900 shadow-lg rounded-md text-white">
+      <h2 className="text-3xl font-bold mb-6 text-center">Sales Dashboard</h2>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Daily Sales Table */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h3 className="text-xl font-semibold mb-4 text-center">
+            Daily Sales
+          </h3>
+          <table className="w-full border-collapse border border-gray-600 text-sm">
+            <thead>
+              <tr className="bg-gray-700">
+                <th className="border border-gray-600 p-2">Date</th>
+                <th className="border border-gray-600 p-2">Orders</th>
+                <th className="border border-gray-600 p-2">Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              {salesData.map((sale) => (
+                <tr key={sale.saleDate} className="text-center">
+                  <td className="border border-gray-600 p-2">
+                    {sale.saleDate}
+                  </td>
+                  <td className="border border-gray-600 p-2">
+                    {sale.totalOrders}
+                  </td>
+                  <td className="border border-gray-600 p-2">
+                    ${sale.totalRevenue.toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Top Games Table */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h3 className="text-xl font-semibold mb-4 text-center">
+            Top 10 Selling Games
+          </h3>
+          <table className="w-full border-collapse border border-gray-600 text-sm">
+            <thead>
+              <tr className="bg-gray-700">
+                <th className="border border-gray-600 p-2">Title</th>
+                <th className="border border-gray-600 p-2">Total Sold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topGames.map((game, index) => (
+                <tr key={index} className="text-center">
+                  <td className="border border-gray-600 p-2">{game.title}</td>
+                  <td className="border border-gray-600 p-2">
+                    {game.totalSold}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
