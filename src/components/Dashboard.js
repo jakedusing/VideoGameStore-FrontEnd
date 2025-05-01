@@ -47,10 +47,10 @@ const Dashboard = () => {
             Video Games
           </Link>
           <Link
-            to="/sales"
+            to="/salesreport"
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg"
           >
-            Sales
+            Sales Reports
           </Link>
           <Link
             to="/customers"
