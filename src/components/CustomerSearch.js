@@ -51,7 +51,7 @@ const CustomerSearch = ({ onSelectCustomer }) => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4.5rem)] flex flex-col items-center justify-center bg-gray-900 text-white relative">
+    <div className="min-h-[calc(100vh-4.5rem)] flex flex-col items-center justify-center bg-gray-900 text-gray-600 relative">
       <h2 className="text-xl font-bold mb-3">Search Customer</h2>
       <input
         type="text"

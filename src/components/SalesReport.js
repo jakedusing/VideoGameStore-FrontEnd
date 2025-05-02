@@ -18,7 +18,7 @@ const SalesReport = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-gray-900 shadow-lg rounded-md text-white">
+    <div className="min-h-[calc(100vh-4.5rem)] mx-auto p-6 bg-gray-900 shadow-lg text-white">
       <h2 className="text-3xl font-bold mb-6 text-center">Sales Dashboard</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
