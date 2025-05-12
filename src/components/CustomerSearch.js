@@ -58,7 +58,7 @@ const CustomerSearch = ({ onSelectCustomer }) => {
         value={phone}
         onChange={handlePhoneChange}
         placeholder="(123) 456-7890"
-        className="border p-2 mr-2"
+        className="p-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400"
         maxLength="14"
       />
       <button
