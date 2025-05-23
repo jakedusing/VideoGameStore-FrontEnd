@@ -26,12 +26,12 @@ const Navbar = ({ token, setToken }) => {
           </li>
           <li>
             <Link to="/videogames" className="hover:text-gray-400 transition">
-              Video Game Stock
+              Stock
             </Link>
           </li>
           <li>
             <Link to="/salesreport" className="hover:text-gray-400 transition">
-              Sales Reports
+              View Sales
             </Link>
           </li>
           <li>

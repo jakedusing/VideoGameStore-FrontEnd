@@ -44,13 +44,13 @@ const Dashboard = () => {
             to="/videogames"
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg"
           >
-            Video Games
+            Stock
           </Link>
           <Link
             to="/salesreport"
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg"
           >
-            Sales Reports
+            Sales
           </Link>
           <Link
             to="/customers"
